@@ -4,6 +4,8 @@ A simple Minecraft-like clone built using Processing, now enhanced with multipla
 
 If you'd like to try the single-player version, check it out [here](https://github.com/IslamAbukoush/3D_minecraft_clone_processing_singleplayer).
 
+![in game screenshot](https://github.com/IslamAbukoush/3D_minecraft_clone_processing_singleplayer/blob/main/screenshot.png?raw=true)
+
 ---
 
 ## 🛠 How to Run
