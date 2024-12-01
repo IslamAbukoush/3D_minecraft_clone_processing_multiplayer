@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 
-
 // input
 boolean wPressed = false;
 boolean aPressed = false;
