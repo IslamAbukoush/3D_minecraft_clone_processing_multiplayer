@@ -13,7 +13,8 @@ If you'd like to try the single-player version, check it out [here](https://gith
 - Follow the instructions provided there to get it running.
 
 ### 2. Configure the Game Sketch
-- Open the sketch and locate the IP address configuration.  
+- Have the [Processing IDE](https://processing.org/download/) downloaded.
+- Open any `.pde` sketch and locate the IP address configuration.  
 - Replace the current IP with:
   - **Localhost**: `ws://localhost:3000/craft`
   - **LAN Multiplayer**: Obtain the IPv4 address of the host machine:
