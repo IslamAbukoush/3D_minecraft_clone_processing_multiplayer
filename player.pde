@@ -47,7 +47,7 @@ class Player {
   
   Player() {
     size = new PVector(25,80,25);
-    position = new PVector(n * blockSize / 2,-1000,n * blockSize / 2);
+    position = new PVector(n * blockSize / 2,-200,n * blockSize / 2);
     skin = loadImage("steve.png");
     targetPosition = new PVector();
     cameraPosition = new PVector(position.x, position.y, position.z);
