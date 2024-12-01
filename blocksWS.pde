@@ -54,7 +54,7 @@ void setup() {
   plr = new Player();
   ui = new UI();
   plr.setupCamera();
-  wsc=new WebsocketClient(this, "ws://localhost:3000/john");
+  wsc=new WebsocketClient(this, "ws://localhost:3000/craft");
   plr.sendPositionMsg();
 }
 
