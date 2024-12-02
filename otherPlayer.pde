@@ -1,40 +1,44 @@
 class OtherPlayer {
   int id;
-  PVector position;      // Current position (rendered)
-  float r;               // Current rotation (rendered)
-  PVector targetPosition; // The position received from the server
-  float targetR;         // Target rotation received from the server
+  PVector position;
+  float yaw, pitch;
+  PVector targetPosition;
+  float targetYaw, targetPitch;
   PVector size;
   Skin avatar;
-  float lerpSpeed = 0.13; // Adjust this for smoother/slower interpolation
+  float lerpSpeed = 0.13;
   
-  OtherPlayer(int id, float x, float y, float z, float r) {
+  OtherPlayer(int id, float x, float y, float z, float yaw, float pitch) {
     this.id = id;
     this.position = new PVector(x, y, z);
     this.targetPosition = new PVector(x, y, z);
-    this.r = r;
-    this.targetR = r;
+    this.yaw = yaw;
+    this.targetYaw = yaw;
+    this.pitch = pitch;
+    this.targetPitch = pitch;
     this.size = new PVector(25, 80, 25);
-    avatar = new Skin(x, y, z, 2.5, r);
+    avatar = new Skin(x, y, z, 2.5, yaw, pitch);
   }
   
-  void updatePosition(float x, float y, float z, float r) {
-    targetPosition.set(x, y, z); // Update target position based on server data
-    targetR = r;
+  void updatePosition(float x, float y, float z, float yaw, float pitch) {
+    targetPosition.set(x, y, z);
+    targetYaw = yaw;
+    targetPitch = pitch;
   }
 
   void update() {
-    // Smoothly move current position and rotation towards targets
     position.lerp(targetPosition, lerpSpeed);
-    r = lerp(r, targetR, lerpSpeed); // Smoothly interpolate rotation
+    yaw = lerp(yaw, targetYaw, lerpSpeed);
+    pitch = lerp(pitch, targetPitch, lerpSpeed);
   }
 
   void draw() {
-    update(); // Ensure the position and rotation are updated before drawing
+    update();
     avatar.position.x = position.x;
     avatar.position.y = position.y - size.y / 3;
     avatar.position.z = position.z;
-    avatar.rotation = r; // Assuming Skin supports a rotation property
+    avatar.yaw = yaw;
+    avatar.pitch = pitch;
     avatar.draw();
   }
 }
