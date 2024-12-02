@@ -22,7 +22,7 @@ If you'd like to try the single-player version, check it out [here](https://gith
   - **LAN Multiplayer**: Obtain the IPv4 address of the host machine:
     - Run `ipconfig` (Windows) or an equivalent command on your OS.
     - Use the IPv4 address of the host as the WebSocket server address.
-    - In the sketch paste the IPv4 address in the following format: `ws://[IPv4 HERE]:3000/craft`, e.g. `ws://192.168.0.1:3000/craft`.
+    - In the sketch (blocksWS.pde) paste the IPv4 address in the following format: `ws://[IPv4 HERE]:3000/craft`, e.g. `ws://192.168.0.1:3000/craft`.
 
 ### 3. Install Required Libraries
 You might need to install some libraries for the sketch to work, such as the `websockets` library.
