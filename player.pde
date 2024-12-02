@@ -43,7 +43,7 @@ class Player {
   
   //server
   int lastSendTime = 0;
-  int threshold = 150;
+  int threshold = 30;
   
   Player() {
     size = new PVector(25,80,25);
