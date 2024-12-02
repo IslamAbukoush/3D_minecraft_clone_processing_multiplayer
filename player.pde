@@ -47,7 +47,7 @@ class Player {
   
   Player() {
     size = new PVector(25,80,25);
-    position = new PVector(n * blockSize / 2,-200,n * blockSize / 2);
+    position = new PVector(n * blockSize / 2,-1000,n * blockSize / 2);
     skin = loadImage("steve.png");
     targetPosition = new PVector();
     cameraPosition = new PVector(position.x, position.y, position.z);
@@ -78,6 +78,7 @@ class Player {
     oldX = mouseX;
     oldY = mouseY;
     float oldTargetYaw = targetYaw;
+    float oldTargetPitch = targetPitch;
     targetYaw += dx * sensitivity * 0.01;
     targetPitch -= dy * sensitivity * 0.01;
 
@@ -180,13 +181,13 @@ class Player {
     targetPosition.y = cameraPosition.y + forwardY;
     targetPosition.z = cameraPosition.z + forwardZ;
     camera(
-        cameraPosition.x, cameraPosition.y, cameraPosition.z,                     // Camera position
-        targetPosition.x, targetPosition.y, targetPosition.z, // Look target
-        0, 1, 0                              // Up direction
+        cameraPosition.x, cameraPosition.y, cameraPosition.z,
+        targetPosition.x, targetPosition.y, targetPosition.z,
+        0, 1, 0
     );
     
     int currentSendTime = millis();
-    if(currentSendTime - lastSendTime > threshold && (oldX != position.x || oldY != position.y || oldZ != position.z || oldTargetYaw != targetYaw)) { //
+    if(currentSendTime - lastSendTime > threshold && (oldX != position.x || oldY != position.y || oldZ != position.z || oldTargetYaw != targetYaw || oldTargetPitch != targetPitch)) { //
       sendPositionMsg();
       lastSendTime = currentSendTime;
     }
@@ -196,7 +197,6 @@ class Player {
     pushMatrix();
     translate(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     
-    // Direction calculations
     float dirX = targetPosition.x - cameraPosition.x;
     float dirY = targetPosition.y - cameraPosition.y;
     float dirZ = targetPosition.z - cameraPosition.z;
@@ -212,16 +212,14 @@ class Player {
     rotateY(yaw);
     rotateX(pitch);
     
-    // Add animation using sin() for a smooth back-and-forth movement
-    float handOffsetZ = sin(time) * 0.5; // Adjust the multiplier for more or less movement
-    float handOffsetY = abs(sin(time)) * 0.2; // Add a slight up-and-down bounce
+    float handOffsetZ = sin(time) * 0.5;
+    float handOffsetY = abs(sin(time)) * 0.2;
     
     translate(-7, 3.5 + handOffsetY, 8 + handOffsetZ);
     rotateX(PI * 0.3);
     rotateY(-PI * 0.03);
     rotateZ(-PI * 0.05);
     
-    // Render the hand
     float scale = 3;
     noStroke();
     ambientLight(50, 50, 50);
@@ -247,11 +245,10 @@ class Player {
     else resetHandAnimation();
   }
   
-  // Call this in the draw loop to update the animation
   void updateAnimation() {
-    time += (float)speed/20; // Adjust speed of animation
+    time += (float)speed/20;
     if (time > TWO_PI) {
-      time -= TWO_PI; // Reset time to keep values manageable
+      time -= TWO_PI;
     }
   }
   
@@ -291,7 +288,8 @@ class Player {
       message.setFloat("x", position.x);
       message.setFloat("y", position.y);
       message.setFloat("z", position.z);
-      message.setFloat("r", targetYaw);
+      message.setFloat("yaw", targetYaw);
+      message.setFloat("pitch", targetPitch);
       wsc.sendMessage(message.toString());
   }
 }
