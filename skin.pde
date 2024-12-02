@@ -1,6 +1,6 @@
 class Skin {
   PVector position;
-  float rotation;
+  float yaw, pitch;
   float scale;
   
   PImage skin;
@@ -47,10 +47,11 @@ class Skin {
   PImage rightLegRight;
   PImage rightLegLeft;
   
-  Skin(float x, float y, float z, float scale, float r) {
+  Skin(float x, float y, float z, float scale, float yaw, float pitch) {
     position = new PVector(x,y,z);
     this.scale = scale;
-    this.rotation = r;
+    this.yaw = yaw;
+    this.pitch = pitch;
     
     //skin
     skin = loadImage("steve.png");
@@ -108,10 +109,15 @@ class Skin {
     noStroke();
     pushMatrix();
     translate(position.x, position.y, position.z);
-    rotateY(HALF_PI-rotation);
+    rotateY(HALF_PI-yaw);
     scale(scale);
-    //translate(0, 15, 0);
+    pushMatrix();
+    translate(0, 2*scale, 0);
+    rotateX(pitch);
+    translate(0, -2*scale, 0);
     drawHead();
+    popMatrix();
+    //rotateX(-pitch);
     drawBody();
     drawLeftArm();
     drawRightArm();
