@@ -123,18 +123,20 @@ void webSocketEvent(String message){
             float playerX = player.getFloat("x");
             float playerY = player.getFloat("y");
             float playerZ = player.getFloat("z");
-            float playerR = player.getFloat("r");
+            float playerYaw = player.getFloat("yaw");
+            float playerPitch = player.getFloat("pitch");
             
-            OtherPlayer newPlr = new OtherPlayer(playerId, playerX, playerY, playerZ, playerR);
+            OtherPlayer newPlr = new OtherPlayer(playerId, playerX, playerY, playerZ, playerYaw, playerPitch);
             players.put(playerId, newPlr);
           }
         } else if (type.equals("join")) {
           float x = json.getFloat("x");
           float y = json.getFloat("y");
           float z = json.getFloat("z");
-          float r = json.getFloat("r");
+          float yaw = json.getFloat("yaw");
+          float pitch = json.getFloat("pitch");
           int id = json.getInt("id");
-          OtherPlayer newPlr = new OtherPlayer(id, x, y, z, r);
+          OtherPlayer newPlr = new OtherPlayer(id, x, y, z, yaw, pitch);
           players.put(id, newPlr);
           plr.sendPositionMsg();
         } else if (type.equals("leave")) {
@@ -144,10 +146,11 @@ void webSocketEvent(String message){
           float x = json.getFloat("x");
           float y = json.getFloat("y");
           float z = json.getFloat("z");
-          float r = json.getFloat("r");
+          float yaw = json.getFloat("yaw");
+          float pitch = json.getFloat("pitch");
           int id = json.getInt("id");
           OtherPlayer target = players.get(id);
-          target.updatePosition(x,y,z,r);
+          target.updatePosition(x,y,z,yaw,pitch);
         }
       }
     } catch (Exception e) {
