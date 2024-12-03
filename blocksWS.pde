@@ -64,6 +64,11 @@ void draw() {
   lastTime = millis();
   updateBlocks();
   plr.drawCamera();
+  for(Block b : blocks) {
+    if(isInside(plr.position, plr.size, b.position, new PVector(blockSize, blockSize, blockSize))) {
+      sendRemoveMessage(b.id);
+    }
+  }
   selectBlock();
   
   background(102, 200, 232);
