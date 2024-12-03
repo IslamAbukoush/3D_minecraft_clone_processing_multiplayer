@@ -2,6 +2,7 @@ class Skin {
   PVector position;
   float yaw, pitch;
   float scale;
+  float speed = 0;
   
   PImage skin;
   
@@ -105,26 +106,65 @@ class Skin {
     rightLegLeft = skin.get(16,52,20,64);
   }
   
+  float time = 0;
+  float dt = 0.1;
+  
   void draw() {
     noStroke();
     pushMatrix();
     translate(position.x, position.y, position.z);
     rotateY(HALF_PI-yaw);
     scale(scale);
+    
     pushMatrix();
     translate(0, 2*scale, 0);
     rotateX(pitch);
     translate(0, -2*scale, 0);
     drawHead();
     popMatrix();
-    //rotateX(-pitch);
+    
     drawBody();
+    
+    pushMatrix();
+    translate(0, 2*scale, 0);
+    rotateX(-time);
+    translate(0, -2*scale, 0);
     drawLeftArm();
+    popMatrix();
+    
+    pushMatrix();
+    translate(0, 2*scale, 0);
+    rotateX(time);
+    translate(0, -2*scale, 0);
     drawRightArm();
+    popMatrix();
+    
+    pushMatrix();
+    translate(0, 6*scale, 0);
+    rotateX(time);
+    translate(0, -6*scale, 0);
     drawLeftLeg();
+    popMatrix();
+    
+    pushMatrix();
+    translate(0, 6*scale, 0);
+    rotateX(-time);
+    translate(0, -6*scale, 0);
     drawRightLeg();
     popMatrix();
+
+    popMatrix();
   }
+  
+  void animate() {
+    time += dt;
+    if(abs(time) >= HALF_PI/2) dt *= -1;
+  }
+  
+  void idle() {
+    time = lerp(time, 0, 0.1);
+  }
+  
   
   void drawHead() {
     //front
