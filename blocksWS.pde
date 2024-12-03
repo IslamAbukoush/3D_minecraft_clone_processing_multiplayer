@@ -100,7 +100,7 @@ void webSocketEvent(String message){
           int id = json.getInt("id");
           placeBlock(x,y,z,blockType,id);
         } else if (type.equals("remove")) {
-          int id = json.getInt("id");
+          int id = intToColor(json.getInt("id"));
           removeBlock(id);
         } else if (type.equals("load")) {
           JSONArray values = json.getJSONArray("world");
