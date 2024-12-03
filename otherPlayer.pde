@@ -17,7 +17,7 @@ class OtherPlayer {
     this.pitch = pitch;
     this.targetPitch = pitch;
     this.size = new PVector(25, 80, 25);
-    avatar = new Skin(x, y, z, 2.5, yaw, pitch);
+    avatar = new Skin(x, y, z, 2.7, yaw, pitch);
   }
   
   void updatePosition(float x, float y, float z, float yaw, float pitch) {
@@ -35,7 +35,7 @@ class OtherPlayer {
   void draw() {
     update();
     avatar.position.x = position.x;
-    avatar.position.y = position.y - size.y / 3;
+    avatar.position.y = position.y - size.y / 2.2;
     avatar.position.z = position.z;
     avatar.yaw = yaw;
     avatar.pitch = pitch;
