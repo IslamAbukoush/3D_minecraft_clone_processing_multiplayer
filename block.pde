@@ -191,7 +191,7 @@ void sendPlaceMessage(float x, float y, float z, int type) {
 void sendRemoveMessage(int id) {
   JSONObject message = new JSONObject();
   message.setString("action", "remove");
-  message.setInt("id", id);
+  message.setInt("id", colorToInt(id));
   wsc.sendMessage(message.toString());
 }
 
